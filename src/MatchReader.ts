@@ -1,22 +1,23 @@
 import { dateStringToDate } from './utils'
 import { MatchResult } from './MatchResult';
-
-// a cystom type
-type MatchData = [ Date, string, string, number, number, MatchResult, string];
-
-
-interface DataReader {
-  read(): void;
-  data: string[][];
-}
+import { MatchData } from './MatchData'
+import { CsvFileReader } from './CsvFileReader'
+import { DataReader } from './DataReader';
 
 export class MatchReader {
+  static fromCsv(filename: string): MatchReader {
+    return new MatchReader(
+      new CsvFileReader(filename)
+    )
+  }
+
   matches : MatchData[] = []
 
   // reader satisfying DataReader interface
   constructor(public reader: DataReader){}
 
   load(): void{
+    // deligation
     this.reader.read();
     this.matches = this.reader.data.map((row: string[]):MatchData => {
         return [
