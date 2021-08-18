@@ -7,10 +7,11 @@ const matches = fs.readFileSync('football.csv', {
   return row.split(',');
 })
 
-const MatchResult = {
-  HomwWin: 'H',
-  AwayWin: 'A',
-  Draw: 'D'
+// enum - enumeration
+enum MatchResult {
+  HomwWin = 'H',
+  AwayWin = 'A',
+  Draw = 'D'
 }
 
 let manUnitedWins = 0;
